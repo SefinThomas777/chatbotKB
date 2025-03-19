@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  frontend:
+    build: ./frontend/chatbot-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=https://your-domain.com/api
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@prod-db:5432/chatbot_db
+      - REDIS_HOST=redis
+      - CALENDLY_API_TOKEN=${CALENDLY_API_TOKEN}
+  redis:
+    image: redis:latest
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "3000:3000"

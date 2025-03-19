@@ -1,0 +1,18 @@
+{
+    "dashboard": {
+      "id": null,
+      "title": "Chatbot Dashboard",
+      "panels": [
+        {
+          "type": "graph",
+          "title": "API Response Time",
+          "targets": [
+            {
+              "expr": "http_request_duration_seconds",
+              "legendFormat": "{{endpoint}}"
+            }
+          ]
+        }
+      ]
+    }
+  }
